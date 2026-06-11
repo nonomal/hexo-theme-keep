@@ -1,25 +1,12 @@
 /* global KEEP */
 
 KEEP.initLocalSearch = () => {
-  // Search DB path
-  let searchPath = KEEP.hexo_config.path
-  if (!searchPath) {
-    // Search DB path
-    console.warn('`hexo-generator-searchdb` plugin is not installed!')
-    return
-  }
-
-  // Popup Window
+  const root = KEEP.hexo_config.root || '/'
+  const searchPath = KEEP.theme_config.search_db_path
   let isfetched = false
-  let datas
-  let isXml = true
-  if (searchPath.length === 0) {
-    searchPath = 'search.xml'
-  } else if (searchPath.endsWith('json')) {
-    isXml = false
-  }
+  let datas = []
   const searchInputDom = document.querySelector('.search-input')
-  const resultContent = document.getElementById('search-result')
+  const resultContent = document.querySelector('#search-result')
 
   const getIndexByWord = (word, text, caseSensitive) => {
     let wordLen = word.length
@@ -161,26 +148,19 @@ KEEP.initLocalSearch = () => {
             return sliceLeft.start - sliceRight.start
           })
 
-          // Select top N slices in content
-          let upperBound = parseInt(
-            KEEP.theme_config.local_search.top_n_per_article
-              ? KEEP.theme_config.local_search.top_n_per_article
-              : 1,
-            10
-          )
-          if (upperBound >= 0) {
-            slicesOfContent = slicesOfContent.slice(0, upperBound)
-          }
+          // Limit search result length
+          const upperBound = 1
+          slicesOfContent = slicesOfContent.slice(0, upperBound)
 
           let resultItem = ''
 
           if (slicesOfTitle.length !== 0) {
-            resultItem += `<li><a href="${url}" class="search-result-title">${highlightKeyword(
+            resultItem += `<li class="search-result-item"><a href="${url}" class="search-result-title">${highlightKeyword(
               title,
               slicesOfTitle[0]
             )}</a>`
           } else {
-            resultItem += `<li><a href="${url}" class="search-result-title">${title}</a>`
+            resultItem += `<li class="search-result-item"><a href="${url}" class="search-result-title">${title}</a>`
           }
 
           slicesOfContent.forEach((slice) => {
@@ -224,23 +204,13 @@ KEEP.initLocalSearch = () => {
   }
 
   const fetchData = () => {
-    fetch(KEEP.hexo_config.root + searchPath)
+    fetch(root + searchPath)
       .then((response) => response.text())
       .then((res) => {
         // Get the contents from search data
         isfetched = true
-        datas = isXml
-          ? [...new DOMParser().parseFromString(res, 'text/xml').querySelectorAll('entry')].map(
-              (element) => {
-                return {
-                  title: element.querySelector('title').textContent,
-                  content: element.querySelector('content').textContent,
-                  url: element.querySelector('url').textContent
-                }
-              }
-            )
-          : JSON.parse(res)
-        // Only match articles with not empty titles
+        datas = JSON.parse(res)
+        // Only match posts with not empty titles
         datas = datas
           .filter((data) => data.title)
           .map((data) => {
@@ -255,7 +225,7 @@ KEEP.initLocalSearch = () => {
       })
   }
 
-  if (KEEP.theme_config.local_search.preload) {
+  if (KEEP.theme_config?.local_search?.preload === true) {
     fetchData()
   }
 

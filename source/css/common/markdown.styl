@@ -1,24 +1,59 @@
-.markdown-body {
+$h1-font-size = 1.68rem
+$h2-font-size = 1.6rem
+$h3-font-size = 1.5rem
+$h4-font-size = 1.4rem
+$h5-font-size = 1.3rem
+$h6-font-size = 1.2rem
+
+
+.keep-markdown-body
+.keep-markdown-body > .post {
   font-size 1rem
 
   blockquote {
+    position relative
+    display flex
+    flex-direction column
+    justify-content flex-start
+    box-sizing border-box
+    margin 1.4rem 0
+    padding 0.8rem
+    color var(--text-color-3)
+    background var(--background-color-2)
+    border-left 0.4rem solid var(--text-color-4)
+    border-top-left-radius 0.2rem
+    border-bottom-left-radius 0.2rem
+
 
     p
     ul
-    ol {
-      padding 0.4rem 0.4rem 0.4rem 0.8rem
+    ol
+    footer {
+      position relative
+      box-sizing border-box
     }
 
-    box-sizing border-box
-    margin 1.4rem 0
-    color var(--default-text-color)
-    background var(--second-background-color)
-    border-left 0.4rem solid var(--default-text-color)
+    footer {
+      margin-bottom 0.6rem
+      font-style italic
+    }
+
+    cite {
+      position relative
+      box-sizing border-box
+      margin-left 1rem
+      color var(--text-color-4)
+
+      &::before {
+        content '— '
+      }
+    }
   }
 
 
   p {
-    color var(--default-text-color)
+    margin 0.6rem 0
+    color var(--text-color-3)
     line-height 2
   }
 
@@ -26,20 +61,21 @@
   a {
     position relative
     box-sizing border-box
-    padding-bottom 0.2rem
+    padding-bottom 0.1rem
     text-decoration none
     overflow-wrap break-word
-    border-bottom 0.1rem solid var(--third-text-color)
+    border-bottom 0.1rem solid var(--text-color-4)
     outline 0
     cursor pointer
+
 
     .fas
     .far
     .fab {
       position relative
       margin 0 0.2rem 0 0.4rem
-      color var(--third-text-color)
-      font-size 0.88rem
+      color var(--text-color-4)
+      font-size 0.8rem
     }
 
 
@@ -54,19 +90,22 @@
 
 
   strong {
-    color var(--default-text-color)
+    color var(--text-color-3)
   }
 
 
   em {
-    color var(--default-text-color)
+    color var(--text-color-3)
   }
 
+  del {
+    color var(--text-color-3)
+  }
 
   ul
   ol {
     li {
-      margin-left 1rem
+      margin 0.3rem 0 0.3rem 1rem
       line-height 2rem
     }
   }
@@ -115,7 +154,7 @@
 
 
   li {
-    color var(--default-text-color)
+    color var(--text-color-3)
   }
 
 
@@ -125,73 +164,184 @@
   h4
   h5
   h6 {
-    color var(--second-text-color)
-    line-height 1.5
+    position relative
+    display block
+    box-sizing border-box
+    padding-top 0.4rem
+    padding-right 2.2rem
+    padding-bottom 0.2rem
+    overflow hidden
+    color var(--text-color-2)
+    line-height 1.6
+    border-bottom 1px solid var(--post-h-bottom-border-color)
 
     +keep-tablet() {
-      line-height 1.25
+      line-height 1.5
+    }
+
+    +keep-mobile() {
+      line-height 1.4
+    }
+
+    &:hover {
+      a.headerlink
+      a.markdownIt-Anchor {
+        visibility visible
+      }
+    }
+
+    a.headerlink
+    a.markdownIt-Anchor {
+      position absolute
+      top 0.4rem
+      right 0
+      z-index 1
+      display inline-flex
+      align-items center
+      justify-content center
+      box-sizing border-box
+      width 1.6em
+      height 1.6em
+      margin-left 0
+      padding 0
+      color var(--text-color-4)
+      font-size 1.2rem
+      line-height 1
+      text-decoration none
+      border none
+      visibility hidden
+      cursor pointer
+
+      &:hover {
+        color var(--text-color-3)
+        text-decoration none
+      }
+
+      &::before {
+        font-weight 600
+        font-family 'Font Awesome 6 Free'
+        content '\f0c1'
+      }
+    }
+
+    code {
+      position relative
+      display inline-block
+      transform translateY(-0.2rem) !important
     }
   }
 
 
   h1 {
     font-weight 600
-    font-size 1.8rem
+    font-size $h1-font-size
 
     +keep-tablet() {
-      font-size 1.7rem
+      font-size $h1-font-size * 0.9
+    }
+
+    +keep-mobile() {
+      font-size $h1-font-size * 0.8
+    }
+
+    a.headerlink
+    a.markdownIt-Anchor {
+      font-size $h1-font-size * 0.8
     }
   }
 
 
   h2 {
     font-weight 600
-    font-size 1.7rem
+    font-size $h2-font-size
 
     +keep-tablet() {
-      font-size 1.6rem
+      font-size $h2-font-size * 0.9
+    }
+
+    +keep-mobile() {
+      font-size $h2-font-size * 0.8
+    }
+
+    a.headerlink
+    a.markdownIt-Anchor {
+      font-size $h2-font-size * 0.8
     }
   }
 
 
   h3 {
     font-weight 550
-    font-size 1.6rem
+    font-size $h3-font-size
 
     +keep-tablet() {
-      font-size 1.5rem
+      font-size $h3-font-size * 0.9
+    }
+
+    +keep-mobile() {
+      font-size $h3-font-size * 0.8
+    }
+
+    a.headerlink
+    a.markdownIt-Anchor {
+      font-size $h3-font-size * 0.8
     }
   }
 
 
   h4 {
     font-weight 550
-    font-size 1.5rem
+    font-size $h4-font-size
 
     +keep-tablet() {
-      font-size 1.4rem
+      font-size $h4-font-size * 0.9
+    }
+
+    +keep-mobile() {
+      font-size $h4-font-size * 0.8
+    }
+
+    a.headerlink
+    a.markdownIt-Anchor {
+      font-size $h4-font-size * 0.8
     }
   }
 
 
   h5 {
     font-weight 500
-    font-size 1.28rem
+    font-size $h5-font-size
 
     +keep-tablet() {
-      font-size 1.18rem
+      font-size $h5-font-size * 0.9
+    }
+
+    +keep-mobile() {
+      font-size $h5-font-size * 0.8
+    }
+
+    a.headerlink
+    a.markdownIt-Anchor {
+      font-size $h5-font-size * 0.8
     }
   }
 
 
   h6 {
     font-weight 500
-    font-size 1.2rem
-    line-height 1.2
+    font-size $h6-font-size
 
     +keep-tablet() {
-      font-size 1.1rem
-      line-height 1.1
+      font-size $h6-font-size * 0.9
+    }
+
+    +keep-mobile() {
+      font-size $h6-font-size * 0.8
+    }
+
+    a.headerlink
+    a.markdownIt-Anchor {
+      font-size $h6-font-size
     }
   }
 
@@ -209,50 +359,84 @@
       opacity 0
     }
 
-    if (hexo-config('post.img_align') == 'center' || hexo-config('style.article_img_align') == 'center') {
+    &[lazyload] {
       margin 0.8rem auto 0.2rem
-    }
-    else {
-      margin 0.8rem 0 0.2rem
+      zoom 1 !important
     }
   }
 
 
-  & > table {
-    width 100%
-    overflow auto
-    border-collapse collapse
-    border-spacing 0
+  & > img
+  p > img {
+    margin var(--post-img-align)
 
-    +keep-mobile() {
-      & {
-        table-layout fixed
+    if (hexo-config('post') && hexo-config('post.img_align') == 'left') {
+      margin 0 auto 0 0
+    }
+
+    if (hexo-config('post') && hexo-config('post.img_align') == 'center') {
+      margin 0 auto
+    }
+
+    if (hexo-config('post') && hexo-config('post.img_align') == 'right') {
+      margin 0 0 0 auto
+    }
+  }
+
+
+  & > .table-container {
+    box-sizing border-box
+    width 100%
+    margin 1.5rem 0
+    overflow auto
+
+    table {
+      box-sizing border-box
+      width 100%
+      border-collapse collapse
+      border-spacing 0
+
+
+      td
+      th {
+        padding 0
+        white-space nowrap
+      }
+
+
+      td {
+        color var(--text-color-3)
+      }
+
+
+      th {
+        color var(--text-color-2)
+        font-weight 600
+      }
+
+
+      td
+      th {
+        padding 0.5rem 1rem
+        border 0.1rem solid var(--border-color)
+      }
+
+
+      tr {
+        background-color var(--background-color-1)
+        border 0.1rem solid var(--border-color)
+      }
+
+      tr:nth-child(2n) {
+        background-color var(--background-color-2)
       }
     }
+  }
 
-    td
-    th {
-      padding 0
-    }
 
-    th {
-      font-weight 600
-    }
-
-    td
-    th {
-      padding 0.4rem 1rem
-      border 0.1rem solid var(--border-color)
-    }
-
-    tr {
-      background-color var(--background-color)
-      border 0.1rem solid var(--fourth-text-color)
-    }
-
-    tr:nth-child(2n) {
-      background-color var(--second-background-color)
-    }
+  .mermaid {
+    background #f5f5f5 !important
+    border-radius 0.3rem
   }
 }
 

@@ -1,37 +1,102 @@
 .footer {
-  color var(--third-text-color)
+  display flex
+  flex-direction column
+  align-items center
+  justify-content center
+  padding 1rem 0
+  color var(--text-color-4)
   font-size 1rem
 
-
   a {
-    color var(--third-text-color)
+    color var(--text-color-4)
 
     &:hover {
       color var(--primary-color)
     }
+
+    &.no-pointer {
+      pointer-events none
+    }
   }
 
-  .info-container {
-    padding-bottom 1rem
-    text-align center
-  }
 
   .info-item {
-    margin 0.3rem 0
-    color var(--third-text-color)
+    position relative
+    display flex
+    flex-wrap wrap
+    align-items center
+    justify-content center
+    box-sizing border-box
+    margin 0.2rem 0
+    color var(--text-color-4)
 
-    &.ypyun-info a {
+    &.count-info {
       display flex
-      align-items center
-      justify-content center
+
+      .count-item {
+        &.uv
+        &.pv {
+          display none
+        }
+      }
+    }
+
+
+    &.deploy-info {
+
+      display flex
+
+      a
+      .tooltip {
+        display flex
+        align-items center
+      }
 
       img {
-        margin 0 0.3rem
+        height 1.08rem
+        margin 0 0.4rem
+      }
+    }
+
+
+    &.count-info
+    &.record-info {
+
+      .count-item
+      .record-item {
+        margin-right 15px
+
+        &::before {
+          position absolute
+          top 50%
+          left -10px
+          box-sizing border-box
+          transform translateY(-56%)
+          content '|'
+        }
+
+
+        &:first-child {
+          &::before {
+            display none
+          }
+        }
+
+
+        &:last-child {
+          margin-right 0
+        }
+
+
+        .item-type {
+          margin-right 4px
+        }
       }
     }
   }
 
+
   .icon-animate {
-    animation icon-animate 1.2s ease-in-out infinite
+    animation heartbeat-animate 1.2s ease-in-out infinite
   }
 }
